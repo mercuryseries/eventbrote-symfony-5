@@ -1,0 +1,15 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}Registrations for {{ event.name }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1 class="mb-3 font-weight-light">Registrations for <a href="{{ path('events.show', {'id': event.id }) }}">{{ event.name }}</a></h1>
+
+    <ol>
+        {% for registration in registrations %}
+            <li><a href="mailto:{{ registration.email }}">({{ registration.name }})</a> &bull; {{ registration.howHeard }}</li>
+        {% else %}
+            <p>No registrations yet! <a href="{{ path('events.registrations.create', {'event': event.id}) }}">Be the first</a>!</p>
+        {% endfor %}
+    </ol>
+{% endblock %}

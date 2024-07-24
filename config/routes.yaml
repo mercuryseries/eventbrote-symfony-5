@@ -1,0 +1,4 @@
+# home:
+#    path: /
+#    methods: [GET, POST]
+#    controller: App\Controller\EventsController::index

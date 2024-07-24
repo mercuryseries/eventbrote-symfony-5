@@ -1,0 +1,8 @@
+@import '~bootstrap';
+@import 'shared/variables';
+@import 'layouts/footer';
+
+body {
+    font-family: $primary-font;
+    background-image: url('../images/background.png');
+}

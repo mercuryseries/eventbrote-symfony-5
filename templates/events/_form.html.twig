@@ -1,0 +1,8 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_widget(form) }}
+    
+    <div>
+        <input type="submit" class="btn btn-primary" value="{{ submitButtonText }}"> | 
+        <a href="{{ cancelUrl }}">Cancel</a>
+    </div>
+{{ form_end(form) }}

@@ -1,0 +1,20 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}Registration for {{ event.name }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h1 class="mt-5 h2 font-weight-light">Registration for <a href="{{ path('events.show', {'id': event.id }) }}">{{ event.name }}</a></h1>
+
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+
+                <div>
+                    <input type="submit" class="btn btn-primary" value="Register" formnovalidate> |
+                    <a href="{{ path('events.registrations.index', {'event': event.id }) }}">Cancel</a>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

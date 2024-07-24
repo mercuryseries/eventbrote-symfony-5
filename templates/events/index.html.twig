@@ -1,0 +1,30 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title 'Discover all events | ' ~ parent() %}
+
+{% block body %}
+    <h1 class="text-center h3 mt-5 mb-4">{{ pluralize(events|length, 'Event') }}</h1>
+
+    <div class="card-columns">
+        {% for event in events %}
+            <div class="card">
+                <a href="{{ path('events.show', {'id': event.id}) }}"><img src="{{ asset('build/images/' ~ event.imageFileName) }}" class="card-img-top" alt="{{ event.name }}"></a>
+                <div class="card-body">
+                    <h2 class="card-title h5">{{ event.name }}</h2>
+                    <h4 class="h6 text-muted">
+                        {% if event.isSoldOut %}
+                            <span class="badge badge-danger text-uppercase">Sold Out!</span>
+                        {% else %}
+                            {{ pluralize(event.spotsLeft, 'spot') }} 
+                        {% endif %}
+                        &bull; {{ format_price(event) }}
+                    </h4>
+                    <p>{{ event.description|u.truncate(50, '...') }}</p>
+                </div>
+                <div class="card-footer text-center">
+                    <small class="text-muted">On {{ event.startsAt|datetime }} in {{ event.location }}</small>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

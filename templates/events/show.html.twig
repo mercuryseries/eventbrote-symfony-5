@@ -1,0 +1,39 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}{{ event.name }} | {{ parent() }}{% endblock %}
+
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card">
+              <img src="{{ asset('build/images/' ~ event.imageFileName) }}" class="img-fluid rounded-top" alt="{{ event.name }}">
+              <div class="card-body">
+                <h5 class="card-title">{{ event.name }}</h5>
+                <p class="card-text">{{ event.description }}</p>
+                <p class="text-muted">{{ pluralize(event.spotsLeft, 'spot') }} &bull; {{ format_price(event) }}</p>
+                <p><a href="{{ path('events.registrations.index', {'event': event.id}) }}">❓ Who's registered?</a></p>
+                {{ register_link_or_sold_out(event) }}
+              </div>
+              <div class="card-footer text-muted">
+                <div class="row d-flex justify-content-between align-items-center">
+                    <div class="col-md-8">
+                        {{ event.startsAt|datetime }} in {{ event.location }}
+                    </div>
+                    <div class="col-md-4">
+                        <div class="btn-group" role="group">
+                            <a href="{{ path('events.edit', {'id': event.id}) }}" class="btn btn-secondary">Edit</a>
+                            <a href="#" onclick="event.preventDefault(); confirm('Are you sure?') && document.querySelector('#js-delete-event-form').submit();" class="btn btn-secondary">Delete</a>
+                        </div>
+
+                        <form id="js-delete-event-form" action="{{ path('events.delete', {'id': event.id}) }}" method="post" style="display: none;">
+                            <input type="hidden" name="_token" value="{{ csrf_token('events.delete') }}">
+                            <input type="hidden" name="_method" value="DELETE" />
+                        </form>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
